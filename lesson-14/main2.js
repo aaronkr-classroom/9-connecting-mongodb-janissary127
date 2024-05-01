@@ -6,20 +6,29 @@ const port = 3000,
   layouts = require("express-ejs-layouts"),
   homeController = require("./controllers/homeController"),
   errorController = require("./controllers/errorController"),
-  // @TODO: Subscriber 모델 가져오기
+  Subscriber = require("./models/subscriber"),   // @TODO: Subscriber 모델 가져오기
   app = express();
 
 /**
  * @TODO: Listing 14.1 (p. 205)
  * Mongoose를 사용한 MongoDB 연결
  */
+const mongoose = require("mongoose");
 
+mongoose.connect(
+  "mongodb+srv://ut-node:MLreZjstmghAVcQb@ut-node.msefbvf.mongodb.net/?retryWrites=true&w=majority&appName=UT-node/ut-node",  //URL
+  { useNewUrlParser: true}
+);
+
+const db = mongoose.connection;
 
 /**
  * @TODO: Listing 14.2 (p. 206)
  * 데이터베이스 연결 이벤트 처리
  */
-
+db.once("open", () => {
+  console.log("DB Connected!");
+});
 
 /**
  * Listing 14.4 (p. 207)
